@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { MeshDistortMaterial, Icosahedron } from "@react-three/drei";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import * as THREE from "three";
@@ -10,39 +9,37 @@ import GradientShader from "./GradientShader";
 
 gsap.registerPlugin(ScrollTrigger);
 
-type MeshDistortMaterialImpl = { distort: number };
-
 function DistortedObject({ progressRef }: { progressRef: React.MutableRefObject<number> }) {
   const meshRef = useRef<THREE.Mesh>(null);
-  const materialRef = useRef<MeshDistortMaterialImpl | null>(null);
+  const baseY = -3.1;
+  const baseScale = 0.75;
 
-  useFrame((_, delta) => {
+  useFrame((state, delta) => {
     if (!meshRef.current) return;
     const p = progressRef.current;
-    meshRef.current.rotation.x += delta * 0.15;
-    meshRef.current.rotation.y = p * Math.PI * 1.5;
-    meshRef.current.position.y = -0.2 - p * 1.6;
-    meshRef.current.scale.setScalar(1.7 - p * 0.4);
-    if (materialRef.current) {
-      materialRef.current.distort = 0.35 + p * 0.35;
-    }
+    const breathe = 1 + Math.sin(state.clock.elapsedTime * 0.8) * 0.03;
+    // Diagonal glide up-and-out to the side so it never crosses the centered headline.
+    const ease = p * p;
+
+    meshRef.current.rotation.x += delta * 0.12;
+    meshRef.current.rotation.y += delta * 0.08;
+    meshRef.current.rotation.z = p * Math.PI * 0.4;
+    meshRef.current.position.y = baseY + ease * 1.9;
+    meshRef.current.position.x = ease * 2.6;
+    meshRef.current.scale.setScalar((baseScale + p * 0.15) * breathe);
   });
 
   return (
-    <Icosahedron ref={meshRef} args={[1.4, 5]} position={[0, -0.2, -0.5]}>
-      <MeshDistortMaterial
-        ref={(instance) => {
-          materialRef.current = instance as unknown as MeshDistortMaterialImpl | null;
-        }}
+    <mesh ref={meshRef} position={[0, baseY, -2.5]}>
+      <icosahedronGeometry args={[1.1, 3]} />
+      <meshStandardMaterial
         color="#ff8a3d"
-        emissive="#ff6a1a"
-        emissiveIntensity={0.55}
-        roughness={0.25}
-        metalness={0.05}
-        distort={0.4}
-        speed={1.5}
+        emissive="#ff5f1f"
+        emissiveIntensity={0.35}
+        roughness={0.3}
+        metalness={0.15}
       />
-    </Icosahedron>
+    </mesh>
   );
 }
 

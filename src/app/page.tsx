@@ -12,7 +12,7 @@ export default function Home() {
       <Nav />
 
       <main id="top" className="relative">
-        <div id="hero-scroll-track" className="relative h-[220vh]">
+        <div id="hero-scroll-track" className="relative h-[160vh]">
           <div className="sticky top-0 flex h-screen flex-col items-center justify-center px-6 text-center sm:px-10">
             <p className="font-mono text-xs uppercase tracking-[0.35em] text-accent-soft">
               Software &amp; AI engineer
@@ -34,7 +34,15 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="relative bg-canvas">
+        <div className="relative overflow-hidden bg-canvas">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 h-[1600px] opacity-[0.14] blur-3xl"
+            style={{
+              background:
+                "radial-gradient(60% 40% at 50% 0%, var(--accent) 0%, transparent 70%), radial-gradient(50% 35% at 15% 55%, #6d8dff 0%, transparent 70%), radial-gradient(50% 35% at 85% 90%, var(--accent-soft) 0%, transparent 70%)",
+            }}
+          />
           <About />
           <ProjectsGrid />
           <Terminal />
