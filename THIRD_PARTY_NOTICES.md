@@ -13,3 +13,10 @@ Components adapted from other open-source projects, per the steal-ui workflow.
   (https://ui.aceternity.com/components/text-generate-effect), same source repo.
 - `src/components/Meteors.tsx` — adapted from Aceternity UI's `Meteors`
   (https://ui.aceternity.com/components/meteors), same source repo.
+- `src/components/FlipWords.tsx` — adapted from Aceternity UI's `FlipWords`
+  (https://ui.aceternity.com/components/flip-words), same source repo.
+- `src/components/HoverBorderGradient.tsx` — adapted from Aceternity UI's
+  `HoverBorderGradient` (https://ui.aceternity.com/components/hover-border-gradient),
+  same source repo.
+- `src/components/TracingBeam.tsx` — adapted from Aceternity UI's `TracingBeam`
+  (https://ui.aceternity.com/components/tracing-beam), same source repo.
