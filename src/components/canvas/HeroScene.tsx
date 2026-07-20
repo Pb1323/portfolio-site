@@ -21,23 +21,25 @@ function DistortedObject({ progressRef }: { progressRef: React.MutableRefObject<
     const p = progressRef.current;
     meshRef.current.rotation.x += delta * 0.15;
     meshRef.current.rotation.y = p * Math.PI * 1.5;
-    meshRef.current.position.y = -p * 1.4;
-    meshRef.current.scale.setScalar(1 - p * 0.25);
+    meshRef.current.position.y = -0.2 - p * 1.6;
+    meshRef.current.scale.setScalar(1.7 - p * 0.4);
     if (materialRef.current) {
       materialRef.current.distort = 0.35 + p * 0.35;
     }
   });
 
   return (
-    <Icosahedron ref={meshRef} args={[1.4, 4]}>
+    <Icosahedron ref={meshRef} args={[1.4, 5]} position={[0, -0.2, -0.5]}>
       <MeshDistortMaterial
         ref={(instance) => {
           materialRef.current = instance as unknown as MeshDistortMaterialImpl | null;
         }}
         color="#ff8a3d"
-        roughness={0.2}
-        metalness={0.4}
-        distort={0.35}
+        emissive="#ff6a1a"
+        emissiveIntensity={0.55}
+        roughness={0.25}
+        metalness={0.05}
+        distort={0.4}
         speed={1.5}
       />
     </Icosahedron>
@@ -69,9 +71,10 @@ export default function HeroScene() {
         gl={{ antialias: true, powerPreference: "high-performance" }}
       >
         <GradientShader progressRef={progressRef} />
-        <ambientLight intensity={0.6} />
-        <directionalLight position={[3, 3, 4]} intensity={1.4} color="#ffb454" />
-        <directionalLight position={[-3, -2, -3]} intensity={0.5} color="#3d6dff" />
+        <ambientLight intensity={1.1} />
+        <directionalLight position={[3, 3, 4]} intensity={2.8} color="#ffcf94" />
+        <directionalLight position={[-3, -2, -3]} intensity={1.1} color="#6d8dff" />
+        <pointLight position={[0, 0, 3]} intensity={1.2} color="#ffffff" />
         <DistortedObject progressRef={progressRef} />
       </Canvas>
     </div>
