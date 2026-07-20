@@ -2,6 +2,8 @@
 
 import { projects } from "@/data/projects";
 import ScrollReveal from "./ScrollReveal";
+import SpotlightCard from "./SpotlightCard";
+import Magnetic from "./Magnetic";
 
 export default function ProjectsGrid() {
   const [feature, ...rest] = projects;
@@ -45,47 +47,44 @@ function ProjectCard({
   featured?: boolean;
 }) {
   return (
-    <div
-      className={`group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-hairline bg-white/[0.03] p-8 transition-colors hover:bg-white/[0.06] ${
-        featured ? "min-h-[280px]" : "min-h-[220px]"
-      }`}
+    <SpotlightCard
+      color={project.accent}
+      className={`group transition-colors hover:border-accent/40 ${featured ? "min-h-[280px]" : "min-h-[220px]"}`}
     >
-      <div>
-        <h3 className={`font-serif-display ${featured ? "text-3xl" : "text-2xl"}`}>
-          {project.title}
-        </h3>
-        <p className="mt-3 max-w-md text-sm text-ink-dim">{project.tagline}</p>
-      </div>
-
-      <div className="mt-8 flex flex-wrap items-end justify-between gap-4">
-        <div className="flex flex-wrap gap-2">
-          {project.stack.map((tech) => (
-            <span
-              key={tech}
-              className="rounded-full border border-hairline px-3 py-1 font-mono text-[11px] text-ink-dim"
-            >
-              {tech}
-            </span>
-          ))}
+      <div className="flex h-full flex-col justify-between p-8">
+        <div>
+          <h3 className={`font-serif-display ${featured ? "text-3xl" : "text-2xl"}`}>
+            {project.title}
+          </h3>
+          <p className="mt-3 max-w-md text-sm text-ink-dim">{project.tagline}</p>
         </div>
 
-        <a
-          href={`#${project.slug}`}
-          data-cursor="View"
-          className="inline-flex shrink-0 items-center gap-2 rounded-full border border-ink/30 px-4 py-2 font-mono text-xs uppercase tracking-wide transition-colors group-hover:border-accent group-hover:text-accent"
-        >
-          View project
-          <span aria-hidden className="transition-transform group-hover:translate-x-1">
-            →
-          </span>
-        </a>
-      </div>
+        <div className="mt-8 flex flex-wrap items-end justify-between gap-4">
+          <div className="flex flex-wrap gap-2">
+            {project.stack.map((tech) => (
+              <span
+                key={tech}
+                className="rounded-full border border-hairline px-3 py-1 font-mono text-[11px] text-ink-dim"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
 
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -bottom-24 -right-24 h-56 w-56 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-30"
-        style={{ background: project.accent }}
-      />
-    </div>
+          <Magnetic strength={0.4}>
+            <a
+              href={`#${project.slug}`}
+              data-cursor="View"
+              className="inline-flex shrink-0 items-center gap-2 rounded-full border border-ink/30 px-4 py-2 font-mono text-xs uppercase tracking-wide transition-colors group-hover:border-accent group-hover:text-accent"
+            >
+              View project
+              <span aria-hidden className="transition-transform group-hover:translate-x-1">
+                →
+              </span>
+            </a>
+          </Magnetic>
+        </div>
+      </div>
+    </SpotlightCard>
   );
 }

@@ -33,11 +33,11 @@ function DistortedObject({ progressRef }: { progressRef: React.MutableRefObject<
     <mesh ref={meshRef} position={[0, baseY, -2.5]}>
       <icosahedronGeometry args={[1.1, 3]} />
       <meshStandardMaterial
-        color="#ff8a3d"
-        emissive="#ff5f1f"
-        emissiveIntensity={0.35}
-        roughness={0.3}
-        metalness={0.15}
+        color="#8b5cf6"
+        emissive="#7c3aed"
+        emissiveIntensity={0.4}
+        roughness={0.28}
+        metalness={0.2}
       />
     </mesh>
   );
@@ -69,8 +69,8 @@ export default function HeroScene() {
       >
         <GradientShader progressRef={progressRef} />
         <ambientLight intensity={1.1} />
-        <directionalLight position={[3, 3, 4]} intensity={2.8} color="#ffcf94" />
-        <directionalLight position={[-3, -2, -3]} intensity={1.1} color="#6d8dff" />
+        <directionalLight position={[3, 3, 4]} intensity={2.6} color="#c4b5fd" />
+        <directionalLight position={[-3, -2, -3]} intensity={1.2} color="#d946ef" />
         <pointLight position={[0, 0, 3]} intensity={1.2} color="#ffffff" />
         <DistortedObject progressRef={progressRef} />
       </Canvas>

@@ -44,7 +44,7 @@ const fragment = /* glsl */ `
     float gradient = smoothstep(0.0, 1.0, uv.y + n * 0.3 - uProgress * 0.3);
     vec3 color = mix(uColorA, uColorB, gradient);
     float glow = smoothstep(0.7, 0.0, distance(uv, vec2(0.5, 0.42)));
-    color += glow * vec3(0.35, 0.16, 0.05);
+    color += glow * vec3(0.22, 0.12, 0.4);
     float vignette = smoothstep(1.2, 0.3, distance(uv, vec2(0.5)));
     color *= mix(0.55, 1.0, vignette);
     gl_FragColor = vec4(color, 1.0);
@@ -55,8 +55,8 @@ const GradientMaterialImpl = shaderMaterial(
   {
     uTime: 0,
     uProgress: 0,
-    uColorA: new THREE.Color("#0c0e18"),
-    uColorB: new THREE.Color("#3a2210"),
+    uColorA: new THREE.Color("#0b0916"),
+    uColorB: new THREE.Color("#2a1454"),
   },
   vertex,
   fragment

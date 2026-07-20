@@ -40,7 +40,7 @@ export default function Home() {
             className="pointer-events-none absolute inset-x-0 top-0 h-[1600px] opacity-[0.14] blur-3xl"
             style={{
               background:
-                "radial-gradient(60% 40% at 50% 0%, var(--accent) 0%, transparent 70%), radial-gradient(50% 35% at 15% 55%, #6d8dff 0%, transparent 70%), radial-gradient(50% 35% at 85% 90%, var(--accent-soft) 0%, transparent 70%)",
+                "radial-gradient(60% 40% at 50% 0%, var(--accent) 0%, transparent 70%), radial-gradient(50% 35% at 15% 55%, var(--accent-pink) 0%, transparent 70%), radial-gradient(50% 35% at 85% 90%, var(--accent-soft) 0%, transparent 70%)",
             }}
           />
           <About />
