@@ -2,11 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import ScrollReveal from "./ScrollReveal";
+import { useGitHubActivity, formatCommitLine } from "@/lib/useGitHubActivity";
 
 type Line = { command: string; output: string[] };
 
 // Placeholder answers — swap in real bio/skills/project list copy.
-const LINES: Line[] = [
+const SCRIPTED_LINES: Line[] = [
   {
     command: "whoami",
     output: ["Jordan Rivers — software & AI engineer.", "[placeholder — replace with real name/title]"],
@@ -25,11 +26,22 @@ const LINES: Line[] = [
   },
 ];
 
+// Placeholder GitHub username for demo purposes — swap for the real owner's username.
+// Falls back to SCRIPTED_LINES below if the API errors or returns no recent push activity,
+// so the terminal never silently renders empty.
+const GITHUB_USERNAME = "octocat";
+
 export default function Terminal() {
+  const { lines: commits } = useGitHubActivity(GITHUB_USERNAME, 4);
   const [visibleLines, setVisibleLines] = useState(0);
   const [typed, setTyped] = useState("");
   const started = useRef(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const LINES: Line[] =
+    commits && commits.length > 0
+      ? [SCRIPTED_LINES[0], ...commits.map(formatCommitLine), SCRIPTED_LINES[SCRIPTED_LINES.length - 1]]
+      : SCRIPTED_LINES;
 
   useEffect(() => {
     const el = containerRef.current;
@@ -76,7 +88,8 @@ export default function Terminal() {
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [commits]);
 
   return (
     <section className="mx-auto max-w-4xl px-6 py-24">
@@ -92,8 +105,8 @@ export default function Terminal() {
             <span className="ml-3 text-xs text-ink-dim">guest@portfolio: ~</span>
           </div>
           <div className="min-h-[220px] space-y-3 p-5">
-            {LINES.slice(0, visibleLines).map((line) => (
-              <div key={line.command}>
+            {LINES.slice(0, visibleLines).map((line, i) => (
+              <div key={`${line.command}-${i}`}>
                 <div className="text-accent-soft">
                   <span className="text-ink-dim">$</span> {line.command}
                 </div>

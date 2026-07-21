@@ -1,6 +1,10 @@
+"use client";
+
+import { useRef } from "react";
 import ScrollReveal from "./ScrollReveal";
 import TextReveal from "./TextReveal";
 import TechMarquee from "./TechMarquee";
+import { useKineticHeading } from "@/lib/useKineticHeading";
 
 const STACK = [
   "TypeScript",
@@ -15,11 +19,17 @@ const STACK = [
 ];
 
 export default function About() {
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  useKineticHeading(headingRef);
+
   return (
     <section id="about" className="mx-auto max-w-4xl px-6 py-32 text-center">
       <ScrollReveal>
         <p className="font-mono text-xs uppercase tracking-[0.3em] text-accent">About</p>
-        <h2 className="mx-auto mt-4 max-w-2xl font-serif-display text-3xl italic sm:text-4xl">
+        <h2
+          ref={headingRef}
+          className="mx-auto mt-4 max-w-2xl font-serif-display text-3xl italic sm:text-4xl"
+        >
           A short paragraph about who I am, what I build, and how I think.
         </h2>
       </ScrollReveal>

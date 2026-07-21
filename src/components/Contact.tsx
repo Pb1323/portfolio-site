@@ -1,8 +1,15 @@
+"use client";
+
+import { useRef } from "react";
 import ScrollReveal from "./ScrollReveal";
 import Meteors from "./Meteors";
 import Magnetic from "./Magnetic";
+import { useKineticHeading } from "@/lib/useKineticHeading";
 
 export default function Contact() {
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  useKineticHeading(headingRef);
+
   return (
     <section
       id="contact"
@@ -14,7 +21,7 @@ export default function Contact() {
 
       <ScrollReveal>
         <p className="font-mono text-xs uppercase tracking-[0.3em] text-accent">Contact</p>
-        <h2 className="mt-4 font-serif-display text-4xl italic sm:text-6xl">
+        <h2 ref={headingRef} className="mt-4 font-serif-display text-4xl italic sm:text-6xl">
           Let&rsquo;s build something.
         </h2>
         <Magnetic strength={0.3} className="mt-10">

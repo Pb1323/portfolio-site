@@ -1,12 +1,14 @@
 import HeroCanvas from "@/components/canvas/HeroCanvas";
 import Nav from "@/components/Nav";
 import About from "@/components/About";
-import ProjectsGrid from "@/components/ProjectsGrid";
+import ProjectsSection from "@/components/ProjectsSection";
 import Terminal from "@/components/Terminal";
 import Contact from "@/components/Contact";
 import FlipWords from "@/components/FlipWords";
 import HoverBorderGradient from "@/components/HoverBorderGradient";
 import TracingBeam from "@/components/TracingBeam";
+import CommandPalette from "@/components/CommandPalette";
+import CursorParticleTrail from "@/components/CursorParticleTrail";
 
 const FLIP_WORDS = ["interfaces", "products", "experiences", "systems"];
 
@@ -15,6 +17,8 @@ export default function Home() {
     <>
       <HeroCanvas />
       <Nav />
+      <CommandPalette />
+      <CursorParticleTrail />
 
       <main id="top" className="relative">
         <div id="hero-scroll-track" className="relative h-[160vh]">
@@ -60,7 +64,7 @@ export default function Home() {
           <TracingBeam>
             <About />
           </TracingBeam>
-          <ProjectsGrid />
+          <ProjectsSection />
           <TracingBeam>
             <Terminal />
             <Contact />

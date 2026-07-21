@@ -20,3 +20,6 @@ Components adapted from other open-source projects, per the steal-ui workflow.
   same source repo.
 - `src/components/TracingBeam.tsx` — adapted from Aceternity UI's `TracingBeam`
   (https://ui.aceternity.com/components/tracing-beam), same source repo.
+- `cmdk` (npm dependency, MIT-licensed) — powers `src/components/CommandPalette.tsx`.
+  Used as-is via its public API, not adapted/copied source, so no attribution header
+  needed in that file — noted here for completeness.

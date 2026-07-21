@@ -53,7 +53,7 @@ export default function CustomCursor() {
         className="pointer-events-none fixed left-0 top-0 z-50 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-ink/40 text-[10px] uppercase tracking-wide text-ink transition-[width,height,background-color] duration-200 ease-out"
         style={
           label
-            ? { width: 72, height: 72, background: "rgba(255,138,61,0.9)", color: "#0b0b0d", borderColor: "transparent" }
+            ? { width: 72, height: 72, background: "rgba(139,92,246,0.9)", color: "#0a0714", borderColor: "transparent" }
             : undefined
         }
       >
