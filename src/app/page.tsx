@@ -1,7 +1,9 @@
 import HeroCanvas from "@/components/canvas/HeroCanvas";
 import Nav from "@/components/Nav";
 import About from "@/components/About";
+import Skills from "@/components/Skills";
 import ProjectsSection from "@/components/ProjectsSection";
+import Experience from "@/components/Experience";
 import Terminal from "@/components/Terminal";
 import Contact from "@/components/Contact";
 import FlipWords from "@/components/FlipWords";
@@ -63,8 +65,10 @@ export default function Home() {
           />
           <TracingBeam>
             <About />
+            <Skills />
           </TracingBeam>
           <ProjectsSection />
+          <Experience />
           <TracingBeam>
             <Terminal />
             <Contact />

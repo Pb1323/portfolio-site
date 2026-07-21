@@ -102,6 +102,24 @@ body {
   animation: meteor-effect linear infinite;
 }
 
+.themed-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-deep) transparent;
+}
+
+.themed-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.themed-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.themed-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--accent-deep);
+  border-radius: 999px;
+}
+
 .noise-overlay {
   pointer-events: none;
   position: fixed;

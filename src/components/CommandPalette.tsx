@@ -46,6 +46,8 @@ export default function CommandPalette() {
     { id: "top", label: "Go to top", onSelect: () => go("#top") },
     { id: "work", label: "View work", hint: "Projects", onSelect: () => go("#work") },
     { id: "about", label: "About", onSelect: () => go("#about") },
+    { id: "skills", label: "Toolkit", hint: "Skills", onSelect: () => go("#skills") },
+    { id: "experience", label: "Journey", hint: "Experience", onSelect: () => go("#experience") },
     { id: "contact", label: "Contact", onSelect: () => go("#contact") },
   ];
 
@@ -76,7 +78,7 @@ export default function CommandPalette() {
             className="w-full bg-transparent font-sans text-sm text-ink placeholder:text-ink-dim/60 focus:outline-none"
           />
         </div>
-        <Command.List className="max-h-80 overflow-y-auto p-2">
+        <Command.List className="themed-scroll max-h-80 overflow-y-auto p-2">
           <Command.Empty className="px-3 py-6 text-center font-mono text-xs text-ink-dim">
             No matches.
           </Command.Empty>
