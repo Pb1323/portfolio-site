@@ -28,7 +28,7 @@ const SKILL_CELLS = [
   },
   {
     title: "Currently exploring",
-    description: "[Placeholder — swap in whatever you're deep in right now: a framework, a paper, a hard problem.]",
+    description: "Growing Summit Tuition post-launch, and picking up hackathon/agentic-AI projects on the side.",
     className: "md:col-span-1",
   },
   {

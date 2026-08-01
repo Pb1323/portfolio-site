@@ -30,13 +30,13 @@ export default function About() {
           ref={headingRef}
           className="mx-auto mt-4 max-w-2xl font-serif-display text-3xl italic sm:text-4xl"
         >
-          A short paragraph about who I am, what I build, and how I think.
+          Self-taught developer who ships fast and builds in public.
         </h2>
       </ScrollReveal>
 
       <TextReveal
         className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-ink-dim"
-        words="[Placeholder bio — replace with a real 2-3 sentence summary: background, the kind of problems you like solving, and what makes your approach distinct. Keep it specific rather than generic.]"
+        words="I'm Pranav — a self-taught developer who builds full-stack products end-to-end, solo. I built Summit Tuition from scratch and took it to £6k ARR in 3 weeks. I like scoping ruthlessly, shipping something real fast, and iterating against actual users rather than polishing in a vacuum."
       />
 
       <div className="mt-16">

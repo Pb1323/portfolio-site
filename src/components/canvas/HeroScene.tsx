@@ -159,7 +159,7 @@ function DistortedObject({
 
   return (
     <mesh ref={meshRef} position={[0, baseY, -2.5]}>
-      <icosahedronGeometry args={[1.1, 5]} />
+      <icosahedronGeometry args={[1.1, 2]} />
       <meshStandardMaterial color="#8b5cf6" emissive="#7c3aed" emissiveIntensity={0.4} roughness={0.28} metalness={0.2} />
     </mesh>
   );
@@ -214,31 +214,30 @@ export default function HeroScene() {
   return (
     <div ref={containerRef} className="fixed inset-0 -z-10">
       <Canvas
-        dpr={[1, 1.5]}
+        dpr={1}
         camera={{ position: [0, 0, 5], fov: 45 }}
-        gl={{ antialias: true, powerPreference: "high-performance" }}
+        gl={{ antialias: false, powerPreference: "high-performance" }}
       >
         <GradientShader progressRef={progressRef} />
         <ambientLight intensity={1.1} />
         <directionalLight position={[3, 3, 4]} intensity={2.6} color="#c4b5fd" />
-        <directionalLight position={[-3, -2, -3]} intensity={1.2} color="#d946ef" />
         <pointLight position={[0, 0, 3]} intensity={1.2} color="#ffffff" />
         <DistortedObject progressRef={progressRef} reduceMotion={reduceMotion} />
         <CameraDolly progressRef={progressRef} reduceMotion={reduceMotion} />
         <EffectComposer multisampling={0}>
           <Bloom
-            intensity={reduceMotion ? 0.35 : 0.85}
-            luminanceThreshold={0.18}
+            intensity={reduceMotion ? 0.3 : 0.6}
+            luminanceThreshold={0.2}
             luminanceSmoothing={0.35}
-            mipmapBlur
-            radius={0.6}
+            mipmapBlur={false}
+            radius={0.4}
           />
           <ChromaticAberration
-            offset={reduceMotion ? [0, 0] : [0.0009, 0.0012]}
+            offset={reduceMotion ? [0, 0] : [0.0007, 0.0009]}
             radialModulation
             modulationOffset={0.4}
           />
-          <Noise opacity={reduceMotion ? 0.015 : 0.035} />
+          <Noise opacity={reduceMotion ? 0.012 : 0.025} />
         </EffectComposer>
       </Canvas>
     </div>

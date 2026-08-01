@@ -26,14 +26,14 @@ export default function Home() {
         <div id="hero-scroll-track" className="relative h-[160vh]">
           <div className="sticky top-0 flex h-screen flex-col items-center justify-center px-6 text-center sm:px-10">
             <p className="font-mono text-xs uppercase tracking-[0.35em] text-accent-soft">
-              Software &amp; AI engineer
+              Pranav Bonagiri — Self-taught developer
             </p>
             <h1 className="mx-auto mt-6 max-w-3xl font-serif-display text-5xl italic leading-[1.05] sm:text-7xl">
               I design and build <FlipWords words={FLIP_WORDS} /> that feel inevitable.
             </h1>
             <p className="mx-auto mt-6 max-w-md text-lg text-ink-dim">
-              [Placeholder headline &amp; intro — replace with your real name, role, and one
-              sentence about the kind of work you do.]
+              I build full-stack products solo, end-to-end. Most recently: Summit Tuition,
+              which hit £6k ARR in its first 3 weeks.
             </p>
             <div className="mt-12 flex flex-col items-center gap-6">
               <HoverBorderGradient

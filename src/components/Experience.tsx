@@ -7,32 +7,32 @@ import { useKineticHeading } from "@/lib/useKineticHeading";
 
 const JOURNEY: StickyScrollEntry[] = [
   {
-    meta: "[Year] — Present",
-    title: "[Role] @ [Company]",
+    meta: "2026 — Present",
+    title: "Founder & Solo Developer @ Summit Tuition",
     accent: "#8b5cf6",
     description:
-      "[Placeholder — one tight paragraph: scope of the role, the kind of problems you own, and a concrete outcome you're proud of. Specifics beat adjectives.]",
+      "Designed, built, and shipped a full-stack 11+ tutoring platform solo — auth, mock exam engine, admin workflows, and Stripe payments. Reached £6k ARR within 3 weeks of launch and continue to own the entire stack, from product decisions to production incidents.",
   },
   {
-    meta: "[Year] — [Year]",
-    title: "[Role] @ [Company]",
+    meta: "2026",
+    title: "Building in public",
     accent: "#d946ef",
     description:
-      "[Placeholder — what changed because you were there. A metric, a launch, a system that didn't exist before you built it.]",
+      "Grew a LinkedIn following past 1,000 sharing the build process behind Summit Tuition, hitting 150k+ impressions in a month. Also run a YouTube Shorts channel with 250k+ views on dev/build content.",
   },
   {
-    meta: "[Year] — [Year]",
-    title: "Independent / freelance work",
+    meta: "2026",
+    title: "Hackathons & side projects",
     accent: "#6366f1",
     description:
-      "[Placeholder — the shape of projects you took on solo: who they were for, what you shipped, what you learned running the whole stack yourself.]",
+      "Competed in hackathons (incl. a Solana-based prediction market build) and shipped independent projects like QuickDraw AI, a real-time doodle-recognition CNN served over FastAPI.",
   },
   {
     meta: "Ongoing",
-    title: "Open source & side projects",
+    title: "Self-taught, project-first",
     accent: "#c4b5fd",
     description:
-      "[Placeholder — the things you build because you want them to exist. Link the ones worth linking in the projects section above.]",
+      "No CS degree — learned by shipping real products end-to-end and iterating against actual users rather than tutorials.",
   },
 ];
 

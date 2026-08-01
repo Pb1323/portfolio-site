@@ -27,71 +27,54 @@ export type Project = {
   links?: ProjectLink[];
 };
 
-// Placeholder content — swap in real projects, taglines, and stacks.
-// `template` picks the detail-view layout: "case-study" (full problem/approach/architecture/
-// results breakdown), "experiment" (shorter narrative read for prototypes/explorations), or
-// "oss" (stack + links up front, for published open-source work).
 export const projects: Project[] = [
   {
-    slug: "project-one",
-    title: "Project One",
-    tagline: "A short one-liner about what this project does and why it matters.",
-    stack: ["Next.js", "TypeScript", "Postgres"],
+    slug: "summit-tuition",
+    title: "Summit Tuition",
+    tagline: "A premium online 11+ tuition platform — built solo, £6k ARR within 3 weeks of launch.",
+    stack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Stripe"],
     accent: "#8b5cf6",
     template: "case-study",
-    year: "[Year]",
-    role: "[Your role]",
+    year: "2026",
+    role: "Founder & Solo Developer",
     overview:
-      "[Placeholder — 2-3 sentences on what this product is, who it's for, and the outcome it drives. Write it like you'd explain it to a smart stranger at a party.]",
+      "Summit Tuition is a full-stack tutoring platform combining a marketing site with a working student/admin product: online mock exams, manual student approval and unlocks, admin marking, and released reports. I designed, built, and shipped the entire thing solo, then took it live to paying customers.",
     problem:
-      "[Placeholder — the specific pain point or gap that existed before this shipped. Be concrete: what were people doing instead, and why did it hurt?]",
+      "Parents shopping for 11+ tutoring were choosing between expensive 1:1 tuition and generic PDF practice packs with no feedback loop. There was no affordable, self-serve product that combined real exam-style mocks with a proper marking/reporting workflow.",
     approach: [
-      "[Placeholder step — how you scoped the first version and what you deliberately left out.]",
-      "[Placeholder step — the key technical decision that shaped everything downstream.]",
-      "[Placeholder step — how you validated it was actually working before scaling it up.]",
+      "Shipped a narrow v1 first: online-only mocks with manual admin unlock, deliberately skipping self-serve payments until the core product worked.",
+      "Built a real question bank and mock-generation pipeline (English + Maths, GL-exam style) rather than shipping generic quiz content.",
+      "Validated pricing and demand directly with real paying families before investing further, iterating the funnel (landing → free sample → registration → paid tier) based on actual conversion, not guesses.",
     ],
     architecture: [
-      "[Placeholder — client layer: framework, rendering strategy, state approach.]",
-      "[Placeholder — data layer: database, caching, or queueing choices and why.]",
-      "[Placeholder — the one integration or constraint that made this interesting to build.]",
+      "Next.js App Router frontend with a client state bridge (useSyncExternalStore) syncing to server APIs, with a localStorage demo-mode fallback for zero-config trials.",
+      "PostgreSQL + Prisma for durable student, mock, attempt, and plan data; tiered product plans (Free/Pro/Max) computed dynamically from the content catalog.",
+      "Stripe Checkout integration for paid tiers, with a WhatsApp manual-payment fallback wired in for markets/moments where full checkout wasn't yet live.",
     ],
     results: [
-      { label: "[Metric]", value: "[Value]" },
-      { label: "[Metric]", value: "[Value]" },
-      { label: "[Metric]", value: "[Value]" },
+      { label: "Revenue", value: "£6k ARR in 3 weeks" },
+      { label: "Build", value: "Solo, end-to-end" },
+      { label: "Scope", value: "Auth, payments, admin, mocks" },
     ],
-    links: [{ label: "Live site", href: "#" }],
+    links: [{ label: "GitHub", href: "https://github.com/Pb1323/summit-tuition" }],
   },
   {
-    slug: "project-two",
-    title: "Project Two",
-    tagline: "Another placeholder project — replace with real outcome and scope.",
-    stack: ["Python", "AI/ML"],
+    slug: "quickdraw-ai",
+    title: "QuickDraw AI",
+    tagline: "A real-time doodle-recognition game powered by a CNN trained on Google's Quick, Draw! dataset.",
+    stack: ["Python", "PyTorch", "FastAPI"],
     accent: "#d946ef",
     template: "experiment",
-    year: "[Year]",
-    role: "[Your role]",
+    year: "2026",
+    role: "Developer",
     overview:
-      "[Placeholder — what this experiment set out to test, and the one-line result. Experiments read best as a hypothesis and an answer.]",
-    approach: ["Rapid prototype", "Small eval set", "Manual review", "Iterate on prompt/pipeline"],
-    results: [{ label: "[Outcome]", value: "[Value]" }],
-    links: [{ label: "Write-up", href: "#" }],
-  },
-  {
-    slug: "project-three",
-    title: "Project Three",
-    tagline: "Third placeholder slot for a shipped product or experiment.",
-    stack: ["React", "WebGL"],
-    accent: "#6366f1",
-    template: "oss",
-    year: "[Year]",
-    role: "Maintainer",
-    overview:
-      "[Placeholder — what the package/library does in one sentence, and why you built it instead of using an existing one.]",
-    links: [
-      { label: "GitHub", href: "#" },
-      { label: "npm", href: "#" },
-      { label: "Docs", href: "#" },
+      "Sketch on a canvas and a convolutional neural network guesses what you're drawing in real time, across 20 categories. Backend serves live inference over FastAPI; the model is trained from scratch on Quick, Draw! bitmap data.",
+    approach: [
+      "Built a data pipeline to pull and preprocess Quick, Draw! bitmaps",
+      "Trained a small CNN (conv/pool ×2 + FC layers with dropout) from scratch",
+      "Served real-time predictions over a FastAPI backend to a canvas frontend",
     ],
+    results: [{ label: "Classes", value: "20 drawing categories" }],
+    links: [{ label: "GitHub", href: "https://github.com/Pb1323/quickdraw-ai" }],
   },
 ];

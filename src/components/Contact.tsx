@@ -26,17 +26,25 @@ export default function Contact() {
         </h2>
         <Magnetic strength={0.3} className="mt-10">
           <a
-            href="mailto:hello@example.com"
+            href="mailto:pranav.bgri@gmail.com"
             data-cursor="Email"
             className="inline-block border-b border-ink pb-1 font-mono text-lg tracking-wide"
           >
-            hello@example.com
+            pranav.bgri@gmail.com
           </a>
         </Magnetic>
-        <p className="mt-4 font-mono text-xs text-ink-dim">[placeholder email — swap in the real one]</p>
+        <div className="mt-6 flex justify-center gap-6 font-mono text-xs uppercase tracking-widest text-ink-dim">
+          <a href="https://github.com/Pb1323" data-cursor="Go" className="transition-colors hover:text-accent-soft">
+            GitHub
+          </a>
+          {/* LinkedIn href pending — swap in real profile URL */}
+          <a href="#" data-cursor="Go" className="transition-colors hover:text-accent-soft">
+            LinkedIn
+          </a>
+        </div>
       </ScrollReveal>
       <footer className="relative mt-24 flex flex-col items-center gap-2 border-t border-hairline pt-8 font-mono text-xs text-ink-dim">
-        <p>&copy; {new Date().getFullYear()} Jordan Rivers. Built with Next.js, Three.js &amp; GSAP.</p>
+        <p>&copy; {new Date().getFullYear()} Pranav Bonagiri. Built with Next.js, Three.js &amp; GSAP.</p>
       </footer>
     </section>
   );
