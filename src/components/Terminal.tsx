@@ -6,30 +6,32 @@ import { useGitHubActivity, formatCommitLine } from "@/lib/useGitHubActivity";
 
 type Line = { command: string; output: string[] };
 
-// Placeholder answers — swap in real bio/skills/project list copy.
+// Fallback shown if the live GitHub feed above (useGitHubActivity) errors or returns nothing.
 const SCRIPTED_LINES: Line[] = [
   {
     command: "whoami",
-    output: ["Jordan Rivers — software & AI engineer.", "[placeholder — replace with real name/title]"],
+    output: ["Pranav Bonagiri — self-taught software engineer, building full-stack products solo."],
   },
   {
     command: "projects --list",
-    output: ["project-one   AI-assisted product, shipped", "project-two   ML experiment / research build", "project-three  interactive web experiment"],
+    output: [
+      "summit-tuition   11+ tutoring platform, £6k ARR in 3 weeks",
+      "quickdraw-ai     real-time doodle-recognition CNN + FastAPI",
+    ],
   },
   {
     command: "skills --top 5",
-    output: ["TypeScript, Python, React/Next.js, LLM tooling, Three.js"],
+    output: ["TypeScript, Python, React/Next.js, PyTorch, PostgreSQL/Prisma"],
   },
   {
     command: "contact",
-    output: ["hello@example.com  ->  [placeholder email]"],
+    output: ["pranav.bgri@gmail.com  ->  github.com/Pb1323"],
   },
 ];
 
-// Placeholder GitHub username for demo purposes — swap for the real owner's username.
 // Falls back to SCRIPTED_LINES below if the API errors or returns no recent push activity,
 // so the terminal never silently renders empty.
-const GITHUB_USERNAME = "octocat";
+const GITHUB_USERNAME = "Pb1323";
 
 export default function Terminal() {
   const { lines: commits } = useGitHubActivity(GITHUB_USERNAME, 4);

@@ -22,7 +22,7 @@ export default function Nav() {
       }`}
     >
       <a href="#top" data-cursor="Top" className="font-serif-display text-lg italic" {...bindHover()}>
-        JR
+        PB
       </a>
       <div className="hidden gap-8 font-mono text-xs uppercase tracking-widest text-ink-dim sm:flex">
         <a href="#work" data-cursor="Go" className="transition-colors hover:text-accent-soft" {...bindHover()}>
@@ -37,15 +37,20 @@ export default function Nav() {
         <a href="#contact" data-cursor="Go" className="transition-colors hover:text-accent-soft" {...bindHover()}>
           Contact
         </a>
-        <button
-          type="button"
-          data-cursor="Go"
-          onClick={() => window.dispatchEvent(new CustomEvent("open-command-palette"))}
-          className="rounded-full border border-hairline px-2.5 py-1 text-[10px] normal-case tracking-normal text-ink-dim transition-colors hover:border-accent/40 hover:text-accent-soft"
-        >
-          ⌘K
-        </button>
+        <a href="/resume" data-cursor="Go" className="transition-colors hover:text-accent-soft" {...bindHover()}>
+          Resume
+        </a>
       </div>
+      <button
+        type="button"
+        data-cursor="Go"
+        aria-label="Open navigation menu"
+        onClick={() => window.dispatchEvent(new CustomEvent("open-command-palette"))}
+        className="rounded-full border border-hairline px-2.5 py-1 font-mono text-[10px] normal-case tracking-normal text-ink-dim transition-colors hover:border-accent/40 hover:text-accent-soft"
+      >
+        <span className="sm:hidden">Menu</span>
+        <span className="hidden sm:inline">⌘K</span>
+      </button>
     </nav>
   );
 }

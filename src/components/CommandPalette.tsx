@@ -42,6 +42,11 @@ export default function CommandPalette() {
     document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
   }
 
+  function visit(href: string) {
+    setOpen(false);
+    window.location.href = href;
+  }
+
   const navActions: Action[] = [
     { id: "top", label: "Go to top", onSelect: () => go("#top") },
     { id: "work", label: "View work", hint: "Projects", onSelect: () => go("#work") },
@@ -49,6 +54,22 @@ export default function CommandPalette() {
     { id: "skills", label: "Toolkit", hint: "Skills", onSelect: () => go("#skills") },
     { id: "experience", label: "Journey", hint: "Experience", onSelect: () => go("#experience") },
     { id: "contact", label: "Contact", onSelect: () => go("#contact") },
+    { id: "resume", label: "Resume", hint: "/resume", onSelect: () => visit("/resume") },
+  ];
+
+  const contactActions: Action[] = [
+    {
+      id: "email",
+      label: "Email Pranav",
+      hint: "pranav.bgri@gmail.com",
+      onSelect: () => visit("mailto:pranav.bgri@gmail.com"),
+    },
+    {
+      id: "github",
+      label: "GitHub",
+      hint: "github.com/Pb1323",
+      onSelect: () => visit("https://github.com/Pb1323"),
+    },
   ];
 
   const projectActions: Action[] = projects.map((p) => ({
@@ -104,6 +125,22 @@ export default function CommandPalette() {
             className="[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:font-mono [&_[cmdk-group-heading]]:text-[10px] [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-widest [&_[cmdk-group-heading]]:text-ink-dim"
           >
             {projectActions.map((a) => (
+              <Command.Item
+                key={a.id}
+                onSelect={a.onSelect}
+                className="flex cursor-pointer items-center justify-between rounded-lg px-3 py-2.5 text-sm text-ink data-[selected=true]:bg-accent/15 data-[selected=true]:text-accent-soft"
+              >
+                <span>{a.label}</span>
+                {a.hint && <span className="font-mono text-[11px] text-ink-dim">{a.hint}</span>}
+              </Command.Item>
+            ))}
+          </Command.Group>
+
+          <Command.Group
+            heading="Contact"
+            className="[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:font-mono [&_[cmdk-group-heading]]:text-[10px] [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-widest [&_[cmdk-group-heading]]:text-ink-dim"
+          >
+            {contactActions.map((a) => (
               <Command.Item
                 key={a.id}
                 onSelect={a.onSelect}

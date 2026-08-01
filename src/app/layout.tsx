@@ -21,10 +21,24 @@ const fraunces = Fraunces({
   axes: ["opsz", "SOFT", "WONK"],
 });
 
+const title = "Pranav Bonagiri — Software Engineer";
+const description =
+  "Portfolio of Pranav Bonagiri, a self-taught software engineer who builds full-stack products end-to-end, solo — including Summit Tuition (£6k ARR in 3 weeks) and QuickDraw AI.";
+
 export const metadata: Metadata = {
-  title: "Jordan Rivers — Software & AI Engineer",
-  description:
-    "Portfolio of Jordan Rivers, a software and AI engineer building interactive, well-crafted products. [Placeholder content — swap in real name, bio, and projects.]",
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    type: "website",
+    siteName: "Pranav Bonagiri",
+  },
+  twitter: {
+    card: "summary",
+    title,
+    description,
+  },
 };
 
 export default function RootLayout({
