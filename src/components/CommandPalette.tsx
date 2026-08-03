@@ -53,6 +53,7 @@ export default function CommandPalette() {
     { id: "about", label: "About", onSelect: () => go("#about") },
     { id: "skills", label: "Toolkit", hint: "Skills", onSelect: () => go("#skills") },
     { id: "experience", label: "Journey", hint: "Experience", onSelect: () => go("#experience") },
+    { id: "qualifications", label: "Qualifications", hint: "Academic record", onSelect: () => go("#qualifications") },
     { id: "contact", label: "Contact", onSelect: () => go("#contact") },
     { id: "resume", label: "Resume", hint: "/resume", onSelect: () => visit("/resume") },
   ];

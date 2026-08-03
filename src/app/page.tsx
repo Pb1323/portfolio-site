@@ -4,6 +4,7 @@ import About from "@/components/About";
 import Skills from "@/components/Skills";
 import ProjectsSection from "@/components/ProjectsSection";
 import Experience from "@/components/Experience";
+import Qualifications from "@/components/Qualifications";
 import Terminal from "@/components/Terminal";
 import Contact from "@/components/Contact";
 import FlipWords from "@/components/FlipWords";
@@ -69,6 +70,7 @@ export default function Home() {
           </TracingBeam>
           <ProjectsSection />
           <Experience />
+          <Qualifications />
           <TracingBeam>
             <Terminal />
             <Contact />

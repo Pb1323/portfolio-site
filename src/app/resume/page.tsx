@@ -1,4 +1,5 @@
 import PrintButton from "./PrintButton";
+import { qualifications } from "@/data/qualifications";
 
 export const metadata = {
   title: "Resume — Pranav Bonagiri",
@@ -25,6 +26,23 @@ export default function ResumePage() {
           (1,000+ LinkedIn followers, 150k+ monthly impressions; 250k+ YouTube Shorts views)
           documenting the build process.
         </p>
+      </section>
+
+      <section className="mt-8">
+        <h2 className="font-mono text-xs uppercase tracking-[0.3em] text-accent">Education</h2>
+        <div className="mt-4 space-y-4">
+          {qualifications.map((q) => (
+            <div key={q.id} className="flex items-baseline justify-between">
+              <div>
+                <h3 className="font-semibold">{q.credential}</h3>
+                <p className="text-sm text-ink-dim">
+                  {q.detail} · {q.institution}
+                </p>
+              </div>
+              <span className="font-mono text-xs text-ink-dim">{q.year}</span>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section className="mt-8">

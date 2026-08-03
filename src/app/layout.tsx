@@ -25,7 +25,11 @@ const title = "Pranav Bonagiri — Software Engineer";
 const description =
   "Portfolio of Pranav Bonagiri, a self-taught software engineer who builds full-stack products end-to-end, solo — including Summit Tuition (£6k ARR in 3 weeks) and QuickDraw AI.";
 
+// Set NEXT_PUBLIC_SITE_URL once this is deployed so relative OG/twitter assets resolve correctly.
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title,
   description,
   openGraph: {

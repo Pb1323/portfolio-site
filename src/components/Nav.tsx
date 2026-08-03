@@ -34,6 +34,9 @@ export default function Nav() {
         <a href="#experience" data-cursor="Go" className="transition-colors hover:text-accent-soft" {...bindHover()}>
           Journey
         </a>
+        <a href="#qualifications" data-cursor="Go" className="transition-colors hover:text-accent-soft" {...bindHover()}>
+          Quals
+        </a>
         <a href="#contact" data-cursor="Go" className="transition-colors hover:text-accent-soft" {...bindHover()}>
           Contact
         </a>
