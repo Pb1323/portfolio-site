@@ -129,8 +129,14 @@ function DistortedObject({
   useFrame((state, delta) => {
     if (!meshRef.current || !materialRef.current) return;
     const p = progressRef.current;
-    const breathe = reduceMotion ? 1 : 1 + Math.sin(state.clock.elapsedTime * 0.8) * 0.03;
     const ease = p * p;
+
+    // Idle "approach" cycle — independent of scroll, so the hero never sits fully still.
+    // Phase drives z-position toward the camera and scale up together (not scale alone),
+    // which is what actually reads as "leaning in" rather than just pulsing in place.
+    const approachPhase = reduceMotion ? 0 : (Math.sin(state.clock.elapsedTime * 0.35) + 1) / 2; // 0..1
+    const approachZ = approachPhase * 0.45;
+    const breathe = reduceMotion ? 1 : 1 + approachPhase * 0.05;
 
     if (!reduceMotion) {
       meshRef.current.rotation.x += delta * 0.12;
@@ -139,6 +145,7 @@ function DistortedObject({
     meshRef.current.rotation.z = p * Math.PI * 0.4;
     meshRef.current.position.y = baseY + ease * 1.9;
     meshRef.current.position.x = ease * 2.6;
+    meshRef.current.position.z = -2.5 + approachZ;
     meshRef.current.scale.setScalar((baseScale + p * 0.15) * breathe);
 
     // Blend shape personality across project cards by overall scroll progress.

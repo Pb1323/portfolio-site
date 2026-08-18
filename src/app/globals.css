@@ -102,6 +102,28 @@ body {
   animation: meteor-effect linear infinite;
 }
 
+@keyframes turntable {
+  from {
+    transform: rotateY(-8deg);
+  }
+  50% {
+    transform: rotateY(8deg);
+  }
+  to {
+    transform: rotateY(-8deg);
+  }
+}
+
+.animate-turntable {
+  animation: turntable 14s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-turntable {
+    animation: none;
+  }
+}
+
 .themed-scroll {
   scrollbar-width: thin;
   scrollbar-color: var(--accent-deep) transparent;

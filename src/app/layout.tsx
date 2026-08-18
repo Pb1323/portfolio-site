@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Fraunces } from "next/font/google";
+import { Familjen_Grotesk, Geist_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import CustomCursor from "@/components/CustomCursor";
 
-const geistSans = Geist({
+// Swapped from Geist (flagged as an overused "safe default" face) for something with more
+// character — a confident, slightly warm geometric-grotesk in the same family as the display
+// sans Anthropic uses on claude.ai (Styrene A). That exact face is commercially licensed and
+// can't be bundled here without a license, so this is a distinctive freely-licensed stand-in,
+// not a literal copy.
+const primarySans = Familjen_Grotesk({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
@@ -53,7 +58,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
+      className={`${primarySans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-canvas text-ink">
         <CustomCursor />

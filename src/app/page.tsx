@@ -12,6 +12,9 @@ import HoverBorderGradient from "@/components/HoverBorderGradient";
 import TracingBeam from "@/components/TracingBeam";
 import CommandPalette from "@/components/CommandPalette";
 import CursorParticleTrail from "@/components/CursorParticleTrail";
+import LiquidProjectTitle from "@/components/canvas/LiquidProjectTitle";
+import GitHubActivityConstellation from "@/components/canvas/GitHubActivityConstellation";
+import ExplodedLayerCaseStudy from "@/components/ExplodedLayerCaseStudy";
 
 const FLIP_WORDS = ["interfaces", "products", "experiences", "systems"];
 
@@ -27,9 +30,12 @@ export default function Home() {
         <div id="hero-scroll-track" className="relative h-[160vh]">
           <div className="sticky top-0 flex h-screen flex-col items-center justify-center px-6 text-center sm:px-10">
             <p className="font-mono text-xs uppercase tracking-[0.35em] text-accent-soft">
-              Pranav Bonagiri — Self-taught developer
+              Self-taught developer
             </p>
-            <h1 className="mx-auto mt-6 max-w-3xl font-serif-display text-5xl italic leading-[1.05] sm:text-7xl">
+            <p className="mt-4 text-4xl font-semibold tracking-tight text-ink sm:text-6xl">
+              Pranav Bonagiri
+            </p>
+            <h1 className="mx-auto mt-6 max-w-3xl font-serif-display text-4xl italic leading-[1.05] sm:text-6xl">
               I design and build <FlipWords words={FLIP_WORDS} /> that feel inevitable.
             </h1>
             <p className="mx-auto mt-6 max-w-md text-lg text-ink-dim">
@@ -68,9 +74,14 @@ export default function Home() {
             <About />
             <Skills />
           </TracingBeam>
+          <LiquidProjectTitle />
+          <ExplodedLayerCaseStudy />
           <ProjectsSection />
           <Experience />
           <Qualifications />
+          <section className="mx-auto max-w-4xl px-6 py-24">
+            <GitHubActivityConstellation />
+          </section>
           <TracingBeam>
             <Terminal />
             <Contact />

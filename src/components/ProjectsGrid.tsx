@@ -1,6 +1,8 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { projects, type Project } from "@/data/projects";
 import ScrollReveal from "./ScrollReveal";
 import SpotlightCard from "./SpotlightCard";
@@ -8,14 +10,51 @@ import Magnetic from "./Magnetic";
 import DraggableCard from "./DraggableCard";
 import { useKineticHeading } from "@/lib/useKineticHeading";
 import { useSpatialHoverAudio } from "@/lib/useSpatialHoverAudio";
+import { useReducedMotion } from "@/lib/useReducedMotion";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function ProjectsGrid({ onOpenProject }: { onOpenProject: (project: Project) => void }) {
   const [feature, ...rest] = projects;
   const headingRef = useRef<HTMLHeadingElement>(null);
+  const featureRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
   useKineticHeading(headingRef);
 
+  // The "landing" beat for the exploded-stack thread above (see ExplodedLayerCaseStudy): the
+  // featured card doesn't just fade up like the rest of the grid, it settles in from a slight
+  // scale with a brief glow pulse in the project's own accent colour — read as the same object
+  // the stack just reassembled into, arriving.
+  useEffect(() => {
+    if (reduceMotion) return;
+    const el = featureRef.current;
+    if (!el || !feature) return;
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: el, start: "top 82%" },
+      });
+      tl.fromTo(
+        el,
+        { opacity: 0, y: 32, scale: 0.94 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out" }
+      ).fromTo(
+        el,
+        { boxShadow: `0 0 0 0 ${feature.accent}00` },
+        {
+          boxShadow: `0 0 48px 6px ${feature.accent}33`,
+          duration: 0.5,
+          ease: "power2.out",
+          yoyo: true,
+          repeat: 1,
+        },
+        "-=0.5"
+      );
+    }, el);
+    return () => ctx.revert();
+  }, [reduceMotion, feature]);
+
   return (
-    <section id="work" className="mx-auto max-w-6xl px-6 py-32 text-center">
+    <section id="work" className="mx-auto max-w-6xl px-6 pb-32 pt-4 text-center">
       <ScrollReveal>
         <p className="font-mono text-xs uppercase tracking-[0.3em] text-accent">
           Selected work
@@ -27,11 +66,11 @@ export default function ProjectsGrid({ onOpenProject }: { onOpenProject: (projec
 
       <div className="mt-14 grid grid-cols-1 gap-5 text-left md:grid-cols-2">
         {feature && (
-          <ScrollReveal className="md:col-span-2">
+          <div ref={featureRef} className="rounded-2xl md:col-span-2">
             <DraggableCard>
               <ProjectCard project={feature} featured onOpen={() => onOpenProject(feature)} />
             </DraggableCard>
-          </ScrollReveal>
+          </div>
         )}
         {rest.map((project, i) => (
           <ScrollReveal key={project.slug} delay={(i + 1) * 0.08}>
