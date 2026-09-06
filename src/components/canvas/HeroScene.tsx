@@ -1,174 +1,134 @@
 "use client";
 
-// Drafted in a Claude Design session and ported in via steal-ui-style handoff (see
-// THIRD_PARTY_NOTICES.md for the borrowed-component convention this project follows —
-// this file is original code, not third-party, but was designed in that separate tool
-// before being adapted here to match the live codebase).
+// Hero centerpiece is a data-driven "signature" built from this account's real GitHub
+// language mix (useGitHubLanguages) instead of a decorative shape — see AGENTS/CLAUDE.md
+// research note: a glowing purple primitive on a dark gradient is 2026's most recognized
+// "generic AI-built site" tell, so the fix is to make the form provably about the person
+// it belongs to, not just re-skin the same shape. Each language becomes one strand of a
+// double-helix, sized by repo count, colored with that language's real GitHub linguist
+// color, so the palette is naturally multi-hued rather than monochrome purple.
 //
-// Adds, on top of the previous version:
-//  1. Post-processing (Bloom + Chromatic Aberration + Noise/grain) via @react-three/postprocessing
-//  2. Shape-shifting hero object — vertex displacement morphs between per-project "shape
-//     personalities" (spike/twist/noise params) as scroll crosses each project card
-//  3. Cinematic camera dolly — camera moves through the scene on scroll, not just the object
+// Keeps, from the previous version:
+//  1. Post-processing (Bloom + Noise/grain) via @react-three/postprocessing
+//  2. Cinematic camera dolly — camera moves through the scene on scroll
+// Drops the chromatic-aberration + single-object vertex-morph shader (the "shiny rock"
+// look) in favor of the particle signature below.
 //
-// Respects prefers-reduced-motion: post-processing intensity is dialed down and the
-// camera dolly / continuous rotation stop (object still renders, just static).
+// Respects prefers-reduced-motion: post-processing intensity is dialed down and rotation
+// stops (signature still renders, just static).
 
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { EffectComposer, Bloom, ChromaticAberration, Noise } from "@react-three/postprocessing";
+import { EffectComposer, Bloom, Noise } from "@react-three/postprocessing";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import * as THREE from "three";
 import GradientShader from "./GradientShader";
-import { projects } from "@/data/projects";
+import { useGitHubLanguages, PLACEHOLDER_LANGUAGES } from "@/lib/useGitHubLanguages";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// One "shape personality" per project card, blended by scroll progress.
-// spike: displacement amplitude, twist: rotational shear, noiseFreq: surface detail scale.
-const SHAPES = [
-  { spike: 0.05, twist: 0.0, noiseFreq: 1.2 }, // resting / hero state
-  ...projects.map((_, i) => ({
-    spike: 0.22 + (i % 3) * 0.06,
-    twist: 0.6 + i * 0.35,
-    noiseFreq: 1.8 + i * 0.7,
-  })),
-];
+const GITHUB_USERNAME = "Pb1323";
+const PARTICLES_PER_REPO = 16;
+const MIN_PARTICLES_PER_STRAND = 24;
+const HELIX_HEIGHT = 4.2;
+const HELIX_RADIUS = 1.15;
 
-const morphVertex = /* glsl */ `
-  uniform float uSpike;
-  uniform float uTwist;
-  uniform float uNoiseFreq;
-  uniform float uTime;
+function buildSignatureGeometry(languages: { name: string; color: string; count: number }[]) {
+  const positions: number[] = [];
+  const colors: number[] = [];
+  const strandCount = languages.length;
 
-  vec3 hash3(vec3 p) {
-    p = vec3(dot(p, vec3(127.1, 311.7, 74.7)),
-              dot(p, vec3(269.5, 183.3, 246.1)),
-              dot(p, vec3(113.5, 271.9, 124.6)));
-    return fract(sin(p) * 43758.5453123);
-  }
+  languages.forEach((lang, strandIndex) => {
+    const n = Math.max(MIN_PARTICLES_PER_STRAND, lang.count * PARTICLES_PER_REPO);
+    const color = new THREE.Color(lang.color);
+    const strandAngle = (strandIndex / strandCount) * Math.PI * 2;
+    for (let i = 0; i < n; i++) {
+      const t = i / n; // 0..1 along the strand
+      const y = (t - 0.5) * HELIX_HEIGHT;
+      const twist = t * Math.PI * 5; // turns over the strand's height
+      const wobble = 1 + Math.sin(t * Math.PI * 9 + strandIndex) * 0.06;
+      const radius = HELIX_RADIUS * wobble;
+      const angle = strandAngle + twist;
+      positions.push(Math.cos(angle) * radius, y, Math.sin(angle) * radius);
+      colors.push(color.r, color.g, color.b);
+    }
+  });
 
-  float noise3(vec3 p) {
-    vec3 i = floor(p);
-    vec3 f = fract(p);
-    f = f * f * (3.0 - 2.0 * f);
-    return mix(
-      mix(mix(dot(hash3(i + vec3(0,0,0)) - 0.5, f - vec3(0,0,0)),
-              dot(hash3(i + vec3(1,0,0)) - 0.5, f - vec3(1,0,0)), f.x),
-          mix(dot(hash3(i + vec3(0,1,0)) - 0.5, f - vec3(0,1,0)),
-              dot(hash3(i + vec3(1,1,0)) - 0.5, f - vec3(1,1,0)), f.x), f.y),
-      mix(mix(dot(hash3(i + vec3(0,0,1)) - 0.5, f - vec3(0,0,1)),
-              dot(hash3(i + vec3(1,0,1)) - 0.5, f - vec3(1,0,1)), f.x),
-          mix(dot(hash3(i + vec3(0,1,1)) - 0.5, f - vec3(0,1,1)),
-              dot(hash3(i + vec3(1,1,1)) - 0.5, f - vec3(1,1,1)), f.x), f.y), f.z);
-  }
-
-  vec3 twistPosition(vec3 p, float angle) {
-    float s = sin(angle * p.y);
-    float c = cos(angle * p.y);
-    mat2 m = mat2(c, -s, s, c);
-    p.xz = m * p.xz;
-    return p;
-  }
-`;
-
-type ShaderUserData = { shader?: THREE.WebGLProgramParametersWithUniforms };
-
-// Injected into MeshStandardMaterial via onBeforeCompile so lighting stays physically based.
-function applyMorphShader(material: THREE.MeshStandardMaterial) {
-  material.onBeforeCompile = (shader) => {
-    shader.uniforms.uSpike = { value: 0.05 };
-    shader.uniforms.uTwist = { value: 0 };
-    shader.uniforms.uNoiseFreq = { value: 1.2 };
-    shader.uniforms.uTime = { value: 0 };
-    shader.vertexShader = shader.vertexShader
-      .replace("#include <common>", `#include <common>\n${morphVertex}`)
-      .replace(
-        "#include <begin_vertex>",
-        `#include <begin_vertex>
-        vec3 morphed = twistPosition(transformed, uTwist);
-        float n = noise3(morphed * uNoiseFreq + uTime * 0.15);
-        morphed += normal * n * uSpike;
-        transformed = morphed;`
-      );
-    (material.userData as ShaderUserData).shader = shader;
-  };
-  material.customProgramCacheKey = () => "morph-standard";
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+  geometry.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3));
+  return geometry;
 }
 
-function DistortedObject({
+// Soft round sprite so points read as glowing dots, not hard squares.
+function useDotTexture() {
+  return useMemo(() => {
+    const size = 64;
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = size;
+    const ctx = canvas.getContext("2d")!;
+    const gradient = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+    gradient.addColorStop(0, "rgba(255,255,255,1)");
+    gradient.addColorStop(0.4, "rgba(255,255,255,0.7)");
+    gradient.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, size, size);
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.needsUpdate = true;
+    return texture;
+  }, []);
+}
+
+function DataSignature({
   progressRef,
   reduceMotion,
 }: {
   progressRef: React.MutableRefObject<number>;
   reduceMotion: boolean;
 }) {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const materialRef = useRef<THREE.MeshStandardMaterial | null>(null);
-  const baseY = -3.1;
-  const baseScale = 0.75;
-
-  useEffect(() => {
-    const mat = new THREE.MeshStandardMaterial({
-      color: "#8b5cf6",
-      emissive: "#7c3aed",
-      emissiveIntensity: 0.4,
-      roughness: 0.28,
-      metalness: 0.2,
-    });
-    applyMorphShader(mat);
-    materialRef.current = mat;
-    if (meshRef.current) meshRef.current.material = mat;
-    return () => {
-      mat.dispose();
-    };
-  }, []);
+  const groupRef = useRef<THREE.Group>(null);
+  const languages = useGitHubLanguages(GITHUB_USERNAME) ?? PLACEHOLDER_LANGUAGES;
+  const dotTexture = useDotTexture();
+  const geometry = useMemo(() => buildSignatureGeometry(languages), [languages]);
+  const baseY = -2.6;
+  const baseScale = 0.85;
 
   useFrame((state, delta) => {
-    if (!meshRef.current || !materialRef.current) return;
+    const group = groupRef.current;
+    if (!group) return;
     const p = progressRef.current;
     const ease = p * p;
 
-    // Idle "approach" cycle — independent of scroll, so the hero never sits fully still.
-    // Phase drives z-position toward the camera and scale up together (not scale alone),
-    // which is what actually reads as "leaning in" rather than just pulsing in place.
-    const approachPhase = reduceMotion ? 0 : (Math.sin(state.clock.elapsedTime * 0.35) + 1) / 2; // 0..1
-    const approachZ = approachPhase * 0.45;
+    const approachPhase = reduceMotion ? 0 : (Math.sin(state.clock.elapsedTime * 0.35) + 1) / 2;
     const breathe = reduceMotion ? 1 : 1 + approachPhase * 0.05;
 
     if (!reduceMotion) {
-      meshRef.current.rotation.x += delta * 0.12;
-      meshRef.current.rotation.y += delta * 0.08;
+      group.rotation.y += delta * 0.15;
+      group.rotation.x = Math.sin(state.clock.elapsedTime * 0.12) * 0.15;
     }
-    meshRef.current.rotation.z = p * Math.PI * 0.4;
-    meshRef.current.position.y = baseY + ease * 1.9;
-    meshRef.current.position.x = ease * 2.6;
-    meshRef.current.position.z = -2.5 + approachZ;
-    meshRef.current.scale.setScalar((baseScale + p * 0.15) * breathe);
-
-    // Blend shape personality across project cards by overall scroll progress.
-    const stops = SHAPES.length - 1;
-    const scaled = p * stops;
-    const idx = Math.min(Math.floor(scaled), stops - 1);
-    const t = reduceMotion ? 0 : scaled - idx;
-    const a = SHAPES[idx];
-    const b = SHAPES[Math.min(idx + 1, stops)];
-    const shader = (materialRef.current.userData as ShaderUserData).shader;
-    if (shader) {
-      shader.uniforms.uSpike.value = THREE.MathUtils.lerp(a.spike, b.spike, t);
-      shader.uniforms.uTwist.value = THREE.MathUtils.lerp(a.twist, b.twist, t);
-      shader.uniforms.uNoiseFreq.value = THREE.MathUtils.lerp(a.noiseFreq, b.noiseFreq, t);
-      shader.uniforms.uTime.value = state.clock.elapsedTime;
-    }
+    group.position.y = baseY + ease * 1.9;
+    group.position.x = ease * 2.6;
+    group.position.z = -2.5;
+    group.scale.setScalar((baseScale + p * 0.2) * breathe);
   });
 
   return (
-    <mesh ref={meshRef} position={[0, baseY, -2.5]}>
-      <icosahedronGeometry args={[1.1, 2]} />
-      <meshStandardMaterial color="#8b5cf6" emissive="#7c3aed" emissiveIntensity={0.4} roughness={0.28} metalness={0.2} />
-    </mesh>
+    <group ref={groupRef} position={[0, baseY, -2.5]}>
+      <points geometry={geometry}>
+        <pointsMaterial
+          size={0.09}
+          map={dotTexture}
+          vertexColors
+          transparent
+          opacity={0.9}
+          sizeAttenuation
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+        />
+      </points>
+    </group>
   );
 }
 
@@ -226,23 +186,15 @@ export default function HeroScene() {
         gl={{ antialias: false, powerPreference: "high-performance" }}
       >
         <GradientShader progressRef={progressRef} />
-        <ambientLight intensity={1.1} />
-        <directionalLight position={[3, 3, 4]} intensity={2.6} color="#c4b5fd" />
-        <pointLight position={[0, 0, 3]} intensity={1.2} color="#ffffff" />
-        <DistortedObject progressRef={progressRef} reduceMotion={reduceMotion} />
+        <DataSignature progressRef={progressRef} reduceMotion={reduceMotion} />
         <CameraDolly progressRef={progressRef} reduceMotion={reduceMotion} />
         <EffectComposer multisampling={0}>
           <Bloom
-            intensity={reduceMotion ? 0.3 : 0.6}
-            luminanceThreshold={0.2}
-            luminanceSmoothing={0.35}
-            mipmapBlur={false}
-            radius={0.4}
-          />
-          <ChromaticAberration
-            offset={reduceMotion ? [0, 0] : [0.0007, 0.0009]}
-            radialModulation
-            modulationOffset={0.4}
+            intensity={reduceMotion ? 0.35 : 0.7}
+            luminanceThreshold={0.15}
+            luminanceSmoothing={0.4}
+            mipmapBlur
+            radius={0.5}
           />
           <Noise opacity={reduceMotion ? 0.012 : 0.025} />
         </EffectComposer>
