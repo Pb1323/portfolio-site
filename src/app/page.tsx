@@ -15,6 +15,7 @@ import CursorParticleTrail from "@/components/CursorParticleTrail";
 import LiquidProjectTitle from "@/components/canvas/LiquidProjectTitle";
 import GitHubActivityConstellation from "@/components/canvas/GitHubActivityConstellation";
 import ExplodedLayerCaseStudy from "@/components/ExplodedLayerCaseStudy";
+import AIGuide from "@/components/AIGuide";
 
 const FLIP_WORDS = ["interfaces", "products", "experiences", "systems"];
 
@@ -25,6 +26,7 @@ export default function Home() {
       <Nav />
       <CommandPalette />
       <CursorParticleTrail />
+      <AIGuide />
 
       <main id="top" className="relative">
         <div id="hero-scroll-track" className="relative h-[160vh]">
