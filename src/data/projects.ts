@@ -29,9 +29,34 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "fly-brain-pong",
+    title: "Fly Brain Pong",
+    tagline: "Play Pong against a real fruit-fly connectome. Its wiring returns 93.7% of balls; the same neurons shuffled, 23.1%.",
+    stack: ["JavaScript", "Canvas", "Spiking neural simulation", "Node.js"],
+    accent: "#22d3ee",
+    template: "experiment",
+    year: "2026",
+    role: "Designer & Developer",
+    overview:
+      "A connectome-constrained simulation, not an uploaded or conscious fly. One paddle is steered by a real 651-neuron slice of the FlyWire fruit-fly brain, from its eyes' target-tracking cells to its steering neurons, simulated as spiking neurons. You can play against it, pit it against a classic CPU paddle, or run the original experiment against the same neurons randomly rewired. Nothing learns or is trained; the only difference between the brains is who's wired to whom.",
+    problem:
+      "Does a small, real piece of a real brain's wiring actually carry a useful signal, or would any similar-sized random network do as well? I wanted a fair, falsifiable test, not a demo dressed up to look impressive.",
+    approach: [
+      "Extracted a 651-neuron / 17,203-edge subgraph from the FlyWire v783 connectome (published CC BY data), from the LC10a visual pathway to the DNa01/DNa02 steering neurons.",
+      "Built a random control with identical neurons, per-neuron in/out-degree and excitatory/inhibitory synapse totals, so only the specific wiring differs.",
+      "Ran the same leaky integrate-and-fire model (Shiu et al. 2024 parameters) for both, calibrated once on the real brain and reused unchanged, across 8 shuffled brains and 4,000 simulated points. I designed the question and the fair test; built with AI coding tools.",
+    ],
+    results: [
+      { label: "Real wiring", value: "93.7% of balls returned" },
+      { label: "Shuffled wiring", value: "23.1% (≈ a paddle that never moves)" },
+      { label: "Score over 4,000 points", value: "3,921–79" },
+    ],
+    links: [{ label: "Play it", href: "https://neural-network-pranav-bonagiri.vercel.app" }],
+  },
+  {
     slug: "summit-tuition",
     title: "Summit Tuition",
-    tagline: "A premium online 11+ tuition platform — built solo, £6k ARR within 3 weeks of launch.",
+    tagline: "A premium online 11+ tuition platform — built solo, £12k ARR within 6 weeks of launch.",
     stack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Stripe"],
     accent: "#8b5cf6",
     template: "case-study",
@@ -52,7 +77,7 @@ export const projects: Project[] = [
       "Stripe Checkout integration for paid tiers, with a WhatsApp manual-payment fallback wired in for markets/moments where full checkout wasn't yet live.",
     ],
     results: [
-      { label: "Revenue", value: "£6k ARR in 3 weeks" },
+      { label: "Revenue", value: "£12k ARR in 6 weeks" },
       { label: "Build", value: "Solo, end-to-end" },
       { label: "Scope", value: "Auth, payments, admin, mocks" },
     ],

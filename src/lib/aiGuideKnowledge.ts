@@ -9,7 +9,7 @@ export const BIO = {
   name: "Pranav Bonagiri",
   headline: "Self-taught software engineer who builds full-stack products solo, end-to-end.",
   summary:
-    "I'm Pranav — a self-taught developer who builds full-stack products end-to-end, solo. I built Summit Tuition from scratch and took it to £6k ARR in 3 weeks. I like scoping ruthlessly, shipping something real fast, and iterating against actual users rather than polishing in a vacuum.",
+    "I'm Pranav — a self-taught developer who builds full-stack products end-to-end, solo. I built Summit Tuition from scratch and took it to £12k ARR in 6 weeks. More recently I built Fly Brain Pong, where a real fruit-fly connectome plays Pong. I like scoping ruthlessly, shipping something real fast, and iterating against actual evidence rather than polishing in a vacuum.",
   stack: [
     "TypeScript",
     "React",

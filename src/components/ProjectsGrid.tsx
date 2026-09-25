@@ -81,9 +81,6 @@ export default function ProjectsGrid({ onOpenProject }: { onOpenProject: (projec
         ))}
       </div>
 
-      <p className="mt-8 font-mono text-xs text-ink-dim">
-        [placeholder projects — swap in real case studies, links, and demo loops]
-      </p>
     </section>
   );
 }

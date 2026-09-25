@@ -15,7 +15,8 @@ const SCRIPTED_LINES: Line[] = [
   {
     command: "projects --list",
     output: [
-      "summit-tuition   11+ tutoring platform, £6k ARR in 3 weeks",
+      "fly-brain-pong   real fly connectome vs shuffled wiring: 93.7% vs 23.1%",
+      "summit-tuition   11+ tutoring platform, £12k ARR in 6 weeks",
       "quickdraw-ai     real-time doodle-recognition CNN + FastAPI",
     ],
   },

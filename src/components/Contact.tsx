@@ -37,9 +37,8 @@ export default function Contact() {
           <a href="https://github.com/Pb1323" data-cursor="Go" className="transition-colors hover:text-accent-soft">
             GitHub
           </a>
-          {/* LinkedIn href pending — swap in real profile URL */}
-          <a href="#" data-cursor="Go" className="transition-colors hover:text-accent-soft">
-            LinkedIn
+          <a href="https://neural-network-pranav-bonagiri.vercel.app" data-cursor="Go" className="transition-colors hover:text-accent-soft">
+            Fly Brain Pong
           </a>
         </div>
       </ScrollReveal>

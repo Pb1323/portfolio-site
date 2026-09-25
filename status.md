@@ -34,3 +34,13 @@ Next.js 16 + React Three Fiber portfolio for Pranav Bonagiri. Live at **https://
 3. Smaller follow-up idea, still open: turn project cards into physical "locations" in the 3D scene instead of scroll-triggered cards (Bruno Simon–style, scoped to existing project data, not a full game). A scene-embedded version of the AI guide (vs. the bolted-on widget built this session) could piggyback on this same 3D-navigation work if pursued.
 4. If pursued later: pull 1-2 components from KokonutUI (free, copy-paste, React/Tailwind) for flat-UI sections, animate with Motion.
 5. `src/data/qualifications.ts` is still placeholder content (`[Qualification — e.g. A-Levels]` etc.) — flagged here since it was noticed in passing this session, not acted on (out of scope for the AI-guide task, and needs real personal data from the user).
+
+## 2026-09-25: portfolio audit fixes applied
+From `PORTFOLIO-AUDIT.md`:
+- Removed the placeholder text (Qualifications brackets and the ProjectsGrid "[placeholder projects…]" line).
+- Corrected the Summit figure from £6k ARR / 3 weeks to **£12k ARR / 6 weeks** everywhere it appeared: meta, hero, about, resume, experience, terminal, projects and the AI guide.
+- Added **Fly Brain Pong** as the first featured project, plus a Journey entry and a terminal line, linking to https://neural-network-pranav-bonagiri.vercel.app. The copy follows the honesty rule ("connectome-constrained simulation"; built with AI coding tools, and Pranav designed the question and the fair test).
+- Replaced the dead LinkedIn `href="#"` with the Fly Pong link. LinkedIn was left out on purpose (it's 16+).
+- The Qualifications institution reads "State grammar school, north London" until the exact school name is confirmed.
+
+Deployment Protection was turned off by the user (the site returns 200). `tsc` and `next build` are clean. Still open: the P1/P2 items in the audit (OG image, the blur-keyframe warning, the purple hero wash).

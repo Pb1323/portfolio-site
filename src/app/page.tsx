@@ -42,7 +42,8 @@ export default function Home() {
             </h1>
             <p className="mx-auto mt-6 max-w-md text-lg text-ink-dim">
               I build full-stack products solo, end-to-end. Most recently: Summit Tuition,
-              which hit £6k ARR in its first 3 weeks.
+              which reached £12k ARR in its first 6 weeks, and Fly Brain Pong, a real fruit-fly
+              connectome playing Pong.
             </p>
             <div className="mt-12 flex flex-col items-center gap-6">
               <HoverBorderGradient

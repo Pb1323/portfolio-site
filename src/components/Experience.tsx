@@ -11,7 +11,14 @@ const JOURNEY: StickyScrollEntry[] = [
     title: "Founder & Solo Developer @ Summit Tuition",
     accent: "#8b5cf6",
     description:
-      "Designed, built, and shipped a full-stack 11+ tutoring platform solo — auth, mock exam engine, admin workflows, and Stripe payments. Reached £6k ARR within 3 weeks of launch and continue to own the entire stack, from product decisions to production incidents.",
+      "Designed, built, and shipped a full-stack 11+ tutoring platform solo — auth, mock exam engine, admin workflows, and Stripe payments. Reached £12k ARR within 6 weeks of launch and continue to own the entire stack, from product decisions to production incidents.",
+  },
+  {
+    meta: "2026",
+    title: "Fly Brain Pong",
+    accent: "#22d3ee",
+    description:
+      "Took a real 651-neuron slice of the FlyWire fruit-fly connectome (eye-tracking cells to steering neurons) and simulated it controlling a Pong paddle, against the same neurons wired at random. The real wiring returns 93.7% of balls; the shuffled wiring 23.1%. A connectome-constrained simulation, not an uploaded or conscious fly. I designed the question and the fair test; built with AI coding tools.",
   },
   {
     meta: "2026",

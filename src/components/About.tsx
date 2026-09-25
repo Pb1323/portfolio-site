@@ -36,7 +36,7 @@ export default function About() {
 
       <TextReveal
         className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-ink-dim"
-        words="I'm Pranav — a self-taught developer who builds full-stack products end-to-end, solo. I built Summit Tuition from scratch and took it to £6k ARR in 3 weeks. I like scoping ruthlessly, shipping something real fast, and iterating against actual users rather than polishing in a vacuum."
+        words="I'm Pranav — a self-taught developer who builds full-stack products end-to-end, solo. I built Summit Tuition from scratch and took it to £12k ARR in 6 weeks with real paying families. More recently I've been asking whether a small piece of a real fruit fly's brain wiring can steer a game of Pong better than the same neurons wired at random (it can, by a lot). I like scoping ruthlessly, shipping something real fast, and iterating against actual evidence rather than polishing in a vacuum."
       />
 
       <div className="mt-16">

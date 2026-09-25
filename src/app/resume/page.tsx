@@ -22,7 +22,7 @@ export default function ResumePage() {
         <h2 className="font-mono text-xs uppercase tracking-[0.3em] text-accent">Summary</h2>
         <p className="mt-3 text-sm leading-relaxed text-ink-dim">
           Self-taught developer who builds full-stack products end-to-end, solo. Built and shipped
-          Summit Tuition, reaching £6k ARR within 3 weeks of launch. Grew a public audience
+          Summit Tuition, reaching £12k ARR within 6 weeks of launch. Grew a public audience
           (1,000+ LinkedIn followers, 150k+ monthly impressions; 250k+ YouTube Shorts views)
           documenting the build process.
         </p>
@@ -56,7 +56,7 @@ export default function ResumePage() {
           <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-ink-dim">
             <li>
               Built and shipped a full-stack tutoring platform (Next.js, TypeScript, PostgreSQL,
-              Prisma, Stripe) — reached £6k ARR within 3 weeks of launch.
+              Prisma, Stripe) — reached £12k ARR within 6 weeks of launch.
             </li>
             <li>
               Designed auth, student/admin workflows, an online mock-exam engine, and payments
