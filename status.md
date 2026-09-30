@@ -44,3 +44,6 @@ From `PORTFOLIO-AUDIT.md`:
 - The Qualifications institution reads "State grammar school, north London" until the exact school name is confirmed.
 
 Deployment Protection was turned off by the user (the site returns 200). `tsc` and `next build` are clean. Still open: the P1/P2 items in the audit (OG image, the blur-keyframe warning, the purple hero wash).
+
+## 2026-09-30: planned restyle (not started)
+User wants a soft, light, "Ghibli-feel" UI (mostly white/cream, hints of sky blue and honey gold, rounded curves, drifting pastel blobs, soft serif headings) instead of the current look. Reference sites are saved in memory (`reference_ui_inspo_sites`): unseen.co, garden-eight.com, moooor.com, waaark.com, fruitful.com; free template `github.com/sharmila1320/Kawaiifolio` (MIT). The design brief is in `Downloads\V0-PROMPT-biology-site-FULL.md` (section 1), which can be adapted for the portfolio. Mood only: never copy real Ghibli art. Keep the honesty rules and the "Pranav Bonagiri" naming. Next: decide whether to do it in v0 or here.
